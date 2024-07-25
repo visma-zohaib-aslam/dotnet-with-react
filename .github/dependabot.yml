@@ -9,3 +9,11 @@ updates:
     directory: "react" # Location of package manifests
     schedule:
       interval: "weekly"
+  - package-ecosystem: "nuget" # See documentation for possible values
+    directory: "dotnet-with-react/API" # Location of package manifests
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "nuget" # See documentation for possible values
+    directory: "dotnet-with-react/tests" # Location of package manifests
+    schedule:
+      interval: "weekly"
