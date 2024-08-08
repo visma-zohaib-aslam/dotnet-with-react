@@ -3,15 +3,37 @@
 # Please see the documentation for all configuration options:
 # https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
 
+# version: 2
+# updates:
+#   - package-ecosystem: "npm" # See documentation for possible values
+#     directory: "react" # Location of package manifests
+#     schedule:
+#       interval: "weekly"
+#   - package-ecosystem: "nuget" # See documentation for possible values
+#     directories:
+#       - "dotnet-with-react/API" # Location of package manifests
+#       - "dotnet-with-react/tests"
+#     schedule:
+#       interval: "weekly"
+
 version: 2
 updates:
-  - package-ecosystem: "npm" # See documentation for possible values
-    directory: "react" # Location of package manifests
+  - package-ecosystem: nuget
+    directory: "/dotnet-with-react"
     schedule:
-      interval: "weekly"
-  - package-ecosystem: "nuget" # See documentation for possible values
-    directories: 
-      - "dotnet-with-react/API" # Location of package manifests
-      - "dotnet-with-react/tests"
+      interval: weekly
+    groups:
+      all-dependencies:
+        patterns:
+          - "*"
+        group-name: "All Dependencies"
+
+  - package-ecosystem: "npm"
+    directory: "/react"
     schedule:
-      interval: "weekly"
+      interval: weekly
+    groups:
+      all-dependencies:
+        patterns:
+          - "*"
+        group-name: "All Dependencies"
