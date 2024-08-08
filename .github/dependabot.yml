@@ -26,7 +26,6 @@ updates:
       all-dependencies:
         patterns:
           - "*"
-        group-name: "All Dependencies"
 
   - package-ecosystem: "npm"
     directory: "/react"
@@ -36,4 +35,3 @@ updates:
       all-dependencies:
         patterns:
           - "*"
-        group-name: "All Dependencies"
