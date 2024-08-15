@@ -26,6 +26,8 @@ updates:
       all-dependencies:
         patterns:
           - "*"
+    commit-message:
+      prefix: "chore(backend)"
 
   - package-ecosystem: "npm"
     directory: "/react"
@@ -35,3 +37,5 @@ updates:
       all-dependencies:
         patterns:
           - "*"
+    commit-message:
+      prefix: "chore(frontend)"
