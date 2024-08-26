@@ -37,10 +37,10 @@ updates:
       all-dependencies:
         patterns:
           - "*"
-        exclude-patterns:
-          - "eslint-*"
         update-types:
           - "minor"
           - "patch"
+    ignore:
+      - dependency-name: "eslint-*"
     commit-message:
       prefix: "chore(frontend)"
