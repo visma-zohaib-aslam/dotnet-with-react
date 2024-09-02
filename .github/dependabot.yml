@@ -33,6 +33,11 @@ updates:
     directory: "/react"
     schedule:
       interval: weekly
+    ignore:
+      - dependency-name: "eslint-*"
+    versioning-strategy: "increase"
+    commit-message:
+      prefix: "chore(frontend)"
     groups:
       all-dependencies:
         patterns:
@@ -40,7 +45,3 @@ updates:
         update-types:
           - "minor"
           - "patch"
-    ignore:
-      - dependency-name: "eslint-*"
-    commit-message:
-      prefix: "chore(frontend)"
