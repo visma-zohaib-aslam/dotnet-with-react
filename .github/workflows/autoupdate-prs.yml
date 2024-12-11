@@ -9,7 +9,7 @@ jobs:
     name: autoupdate
     runs-on: ubuntu-latest
     steps:
-      - uses: docker://chinthakagodawita/autoupdate-action@0707656cd062a3b0cf8fa9b2cda1d1404d74437e # v1.7.0
+      - uses: docker://chinthakagodawita/autoupdate-action@v1
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           PR_FILTER: "auto_merge"
