@@ -4,18 +4,20 @@ on:
   push:
     branches:
       - master
+      - main
     paths-ignore:
       - "README.md"
       - "docs/**"
   pull_request:
     branches:
       - master
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Build
         run: |
