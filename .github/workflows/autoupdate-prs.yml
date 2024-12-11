@@ -1,0 +1,15 @@
+name: Auto-update PRs
+on:
+  push:
+    branches:
+      - master
+jobs:
+  autoupdate:
+    name: autoupdate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: docker://chinthakagodawita/autoupdate-action@0707656cd062a3b0cf8fa9b2cda1d1404d74437e # v1.7.0
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          PR_FILTER: "auto_merge"
+          PR_READY_STATE: "ready_for_review"
