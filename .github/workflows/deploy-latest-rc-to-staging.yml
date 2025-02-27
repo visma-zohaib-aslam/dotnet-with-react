@@ -6,7 +6,7 @@ on:
     - cron: "0 21 * * *" # Runs every day at 9:00 PM
 
 jobs:
-  schedule-staging-deployment:
+  prepare:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -18,15 +18,14 @@ jobs:
           git fetch --tags
           TAG=$(git tag --sort=-creatordate | grep -E 'rc' | head -n 1)
           echo "latest_rc_tag=${TAG}" >> $GITHUB_ENV
+  deploy-frontend:
+    uses: ./.github/workflows/deploy-frontend.yml
+    with:
+      environment: staging
+      version: ${{ env.latest_rc_tag }}
 
-      - name: Deploy frontend
-        uses: ./.github/workflows/deploy-frontend.yml
-        with:
-          environment: staging
-          version: ${{ env.latest_rc_tag }}
-
-      - name: Deploy backend
-        uses: ./.github/workflows/deploy-backend.yml
-        with:
-          environment: staging
-          version: ${{ env.latest_rc_tag }}
+  deploy-backend:
+    uses: ./.github/workflows/deploy-backend.yml
+    with:
+      environment: staging
+      version: ${{ env.latest_rc_tag }}
