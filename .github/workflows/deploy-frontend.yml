@@ -1,0 +1,52 @@
+name: Build and deploy frontend
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        type: string
+        description: "development, staging, demo or production"
+        required: true
+        default: "development"
+      version:
+        type: string
+        description: "Full long tag for example: 3.122001.123-rc or 3.122001.123. Defaults to default branch"
+        required: false
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        description: "development, staging, demo or production"
+        required: true
+        options:
+          - staging
+          - development
+          - demo
+          - production
+        default: "development"
+      version:
+        type: string
+        description: "Full long tag for example: 3.122001.123-rc or 3.122001.123. Defaults to default branch"
+        required: false
+
+jobs:
+  check_proper_environment:
+    name: Check environment name
+    runs-on: ubuntu-latest
+    env:
+      ENVIRONMENT: ${{ inputs.environment }}
+    steps:
+      - name: Is written without typos
+        shell: bash
+        run: |
+          declare -A envs=(
+           [development]=1  [staging]=1  [production]=1
+          )
+          if ! [[ -n "${envs[$ENVIRONMENT]}" ]]; then exit 1; fi
+
+      - name: Print environment and version
+        shell: bash
+        run: |
+          echo "Environment: ${{ inputs.environment }}"
+          echo "Version: ${{ inputs.version }}"
+          exit 0

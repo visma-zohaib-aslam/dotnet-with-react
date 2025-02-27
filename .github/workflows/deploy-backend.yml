@@ -1,0 +1,40 @@
+name: Deploy backend
+on:
+  workflow_call:
+    inputs:
+      environment:
+        type: string
+        description: "development, staging, demo or production"
+        required: true
+        default: "development"
+      version:
+        type: string
+        description: "Full long tag for example: 3.122001.123-rc or 3.122001.123. Defaults to default branch"
+        required: true
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        description: "development, staging, demo or production"
+        required: true
+        options:
+          - staging
+          - development
+          - demo
+          - production
+        default: "development"
+      version:
+        type: string
+        description: "Full long tag for example: 1.122001.123-rc or 1.122001.123"
+        required: true
+
+jobs:
+  deploy-migration:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print environment and version
+        shell: bash
+        run: |
+          echo "Environment: ${{ inputs.environment }}"
+          echo "Version: ${{ inputs.version }}"
+          exit 0
