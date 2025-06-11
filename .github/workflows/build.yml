@@ -12,7 +12,10 @@ on:
     branches:
       - master
       - main
-
+      - "release/**"
+      - "feature/**"
+      - "bugfix/**"
+      - "hotfix/**"
 jobs:
   build:
     runs-on: ubuntu-latest
