@@ -1,0 +1,36 @@
+name: Deploy latest release candidate to staging
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 21 * * *" # Runs every day at 9:00 PM
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      latest_rc_tag: ${{ steps.get_latest_rc_tag.outputs.latest_rc_tag }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Fetch latest "rc" tag
+        id: get_latest_rc_tag
+        run: |
+          git fetch --tags
+          TAG=$(git for-each-ref --sort=-creatordate --format '%(refname:short)' refs/tags | grep -E 'rc' | head -n 1)
+          echo "latest_rc_tag=${TAG}" >> $GITHUB_OUTPUT
+
+  deploy-frontend:
+    needs: [prepare]
+    uses: ./.github/workflows/deploy-frontend.yml
+    with:
+      environment: staging
+      version: ${{ needs.prepare.outputs.latest_rc_tag }}
+
+  deploy-backend:
+    needs: [prepare]
+    uses: ./.github/workflows/deploy-backend.yml
+    with:
+      environment: staging
+      version: ${{ needs.prepare.outputs.latest_rc_tag }}
