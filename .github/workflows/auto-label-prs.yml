@@ -13,6 +13,6 @@ jobs:
         env:
           COMMENT_BODY: ${{ github.event.comment.body }}
         run: |
-          echo "Comment body: $COMMENT_BODY"
-          echo "Full GitHub context:"
-          echo '${{ toJson(github) }}'
+          printf "Comment body: %s\n" "$COMMENT_BODY"
+          printf "Full GitHub context:\n"
+          printf '%s\n' '${{ toJson(github) }}'
