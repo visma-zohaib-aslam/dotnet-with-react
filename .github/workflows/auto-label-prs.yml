@@ -1,0 +1,18 @@
+name: 🏷️ Auto-label Stacked PRs for Updates
+on:
+  issue_comment:
+    types: [created, edited]
+
+jobs:
+  add_label:
+    name: 🔍 Analyze Comment & Apply Label
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🔍 Check comment for GitHub links
+        id: check_links
+        env:
+          COMMENT_BODY: ${{ github.event.comment.body }}
+        run: |
+          echo "Comment body: $COMMENT_BODY"
+          echo "Full GitHub context:"
+          echo '${{ toJson(github) }}'
